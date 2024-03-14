@@ -26,7 +26,7 @@ const TrendingCoins = () => {
     }
 
   return (
-    <div className='w-[427px] h-[225px] p-4 gap-5 rounded-lg bg-white'>
+    <div className='md:w-[387px] md:h-[225px] p-4 gap-5 rounded-lg bg-white'>
         <p className=' font-semibold text-2xl text-justify pb-4 -mt-2 '>Trending Coins (24h)</p>
       {
         loading === 'loading'

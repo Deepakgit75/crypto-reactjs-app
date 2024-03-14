@@ -1,11 +1,12 @@
 import './App.css';
-import Navbar from './components/Navbar';
+import Navbars from './components/Navbar';
+// import Navbar from './components/Navbar';
 import Homepage from './pages/Homepage';
 
 function App() {
   return (
-    <div className="App bg-slate-400 max-w-screen-2xl">
-      <Navbar/>
+    <div className="App bg-slate-900 w-full">
+      <Navbars/>
       <Homepage/>
     </div>
   );

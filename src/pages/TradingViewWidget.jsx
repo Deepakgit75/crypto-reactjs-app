@@ -17,18 +17,18 @@ function TradingViewWidget() {
               "BITSTAMP:BTCUSD|1D"
             ]
           ],
-          "chartOnly": false,
-          "width": 1062,
-          "height": 711,
+          "chartOnly": true,
+          "width": "100%",
+          "height": "100%",
           "locale": "en",
           "colorTheme": "light",
-          "autosize": false,
+          "autosize": true,
           "showVolume": false,
           "showMA": false,
           "hideDateRanges": false,
           "hideMarketStatus": false,
-          "hideSymbolLogo": false,
-          "scalePosition": "right",
+          "hideSymbolLogo": true,
+          "scalePosition": "left",
           "scaleMode": "Normal",
           "fontFamily": "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
           "fontSize": "10",
@@ -36,9 +36,6 @@ function TradingViewWidget() {
           "valuesTracking": "1",
           "changeMode": "price-and-percent",
           "chartType": "area",
-          "maLineColor": "#2962FF",
-          "maLineWidth": 1,
-          "maLength": 9,
           "lineWidth": 2,
           "lineType": 0,
           "dateRanges": [
@@ -51,16 +48,18 @@ function TradingViewWidget() {
             "all|1M"
           ],
           "lineColor": "rgba(41, 98, 255, 1)",
-          "topColor": "rgba(187, 217, 251, 1)",
+          "topColor": "rgba(144, 191, 249, 1)",
           "bottomColor": "rgba(255, 255, 255, 1)",
-          "dateFormat": "dd MMM"
+          "timeHoursFormat": "24-hours"
         }`;
         container.current.innerHTML = " ";
         container.current.appendChild(script);
-    },[]);
+    },
+    []
+  );
 
   return (
-    <div className="tradingview-widget-container p-5 bg-white rounded-md" ref={container}>
+    <div className="tradingview-widget-container" ref={container}>
       <div className="tradingview-widget-container__widget"></div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {Swiper, SwiperSlide} from "swiper/react"
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -8,36 +8,49 @@ import { cards } from '../assets/data';
 
 
 const Slider = () => {
+
+    const [slidesPerView, setSlidesPerView] = useState('auto');
+
+    const handleResize = () => {
+      window.innerWidth >= 1000 && setSlidesPerView(2);
+      window.innerWidth < 1000  && setSlidesPerView(1);
+    }
+  
+    useEffect(() =>{
+      window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
+
   return (
-    <div className='m-2'>
-        <div className='m-4 text-justify '>
+    <div className=''>
+        <div className='flex text-[10px] text-justify gap-4 '>
             <Swiper
-                slidesPerView={2}
+                slidesPerView={slidesPerView}
                 spaceBetween={10}
                 cssMode={true}
                 navigation={true}
-                // pagination={true}
                 mousewheel={true}
                 keyboard={true}
                 modules={[Navigation, Pagination, Mousewheel, Keyboard]}
-                className='w-full h-full'
+                className={"w-[99%] h-50"} 
             >
-
                 {
                     cards.map((card, index) => (
                         <SwiperSlide key={index}
-                            className={`my-4 flex flex-row rounded-xl ${index % 2 === 0 ? " bg-[#E8F4FD] ":" bg-[#EBF9F4] " }`}
+                            className={`w-[500px] pt-4 flex flex-row rounded-xl ${index % 2 === 0 ? " bg-[#E8F4FD] ":" bg-[#EBF9F4] " }`}
                         >
                             <div className='flex flex-row m-4'>
                                 <img
                                 src={card?.image} alt='icon'
-                                className='h-9 w-9 m-2 rounded-full'
+                                className='h-9 w-9 m-2 rounded-full '
                                 />
-                                <div>
+                                <div className='overflow-none h-60 text-justify'>
                                     <p className='text-black mx-4 font-medium text-sm mb-2'>
                                     {card.content?.slice(0, 89)}
                                     </p>
-                                    <p className='text-black mx-4 font-normal text-sm '>
+                                    <p className='text-black mx-4 font-normal text-sm overflow-hidden'>
                                     {card.content?.slice(90, -1)}
                                     </p>
                                 </div>

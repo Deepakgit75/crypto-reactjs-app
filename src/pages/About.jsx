@@ -5,7 +5,7 @@ import image2 from '../assets/image-2.jpg'
 
 const About = () => {
   return (
-    <div className='bg-white p-4 w-[70%]'>
+    <div className='bg-white p-4  md:w-[70%]'>
       <div className='text-justify '>
         <div className='w-[100%]  '>
             <p className=' flex mr-auto font-semibold text-2xl text-[#0B1426]'>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getTrendcoins } from '../store/trendcoinSlice';
 
@@ -16,9 +16,21 @@ const YouMayLike = () => {
 
   const {data, status} = useSelector(state => state.trendcoin);
   console.log(data.coins);
+  const [slidesPerView, setSlidesPerView] = useState('auto');
+
+  const handleResize = () => {
+    window.innerWidth >= 1000 && setSlidesPerView(5);
+    window.innerWidth < 1000 && window.innerWidth >= 650 && setSlidesPerView(4);
+    window.innerWidth < 650  && window.innerWidth >= 520 && setSlidesPerView(3);
+    window.innerWidth < 520 && setSlidesPerView(2);
+  }
 
   useEffect(() =>{
-      dispatch(getTrendcoins());
+    dispatch(getTrendcoins());
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   if(status === 'loading'){
@@ -32,14 +44,14 @@ const YouMayLike = () => {
   }
 
   return (
-    <div className='text-justify flex flex-col mt-[480px] w-[70%] p-6 bg-white gap-6'> 
+    <div className='text-justify flex flex-col md:w-[70%] p-6 bg-white gap-6'> 
       <div>
         <p className=' font-semibold text-2xl text-[#202020] '>You May Also Like </p>
       </div>
 
       <div>
         <Swiper
-          slidesPerView={5}
+          slidesPerView={slidesPerView}
           spaceBetween={10}
           cssMode={true}
           navigation={true}
@@ -52,19 +64,20 @@ const YouMayLike = () => {
           {
             data?.coins?.map((coin, index) => (
               <SwiperSlide 
-              className='flex flex-row rounded-xl gap-6 border border-[#E3E3E3]'
+              className='flex flex-row p-4 rounded-xl gap-6 border border-[#E3E3E3]'
               key={index} >
                 <div className='flex flex-col gap-2'>
                   <div className='flex gap-2'>
-                    <img src={coin?.item.small} className=' w-7 h-7  ' alt='coin' />
-                    <p>{coin?.item.symbol}</p>
-                    <p>{coin?.item.data.price_change_percentage_24h.usd.toFixed(2)}% </p>
+                    <img src={coin?.item.small} className=' w-[26px] h-[26px]  ' alt='coin' />
+                    <p className='text-[#202020] font-normal text-base '>{coin?.item.symbol}</p>
+                    <p className='bg-bgred1 p-1  rounded-sm text-[#E96975] font-normal text-xs'>{coin?.item.data.price_change_percentage_24h.usd.toFixed(2)}% </p>
                   </div>
                   <div>
-                    <p className='text-justify'>{coin?.item.data.price}</p>
+                    <p className='text-justify text-[#171717] font-medium text-xl '>{coin?.item.data.price}</p>
                   </div>
                   <div>
-                    <img src={coin?.item.data?.sparkline} alt='coin' />
+                    <img src={coin?.item.data?.sparkline} alt='coin'
+                    className=' px-4 ' />
                   </div>
                 </div>
               </SwiperSlide>
@@ -80,7 +93,7 @@ const YouMayLike = () => {
       </div>
       <div>
         <Swiper
-          slidesPerView={5}
+          slidesPerView={slidesPerView}
           spaceBetween={10}
           cssMode={true}
           navigation={true}
@@ -93,7 +106,7 @@ const YouMayLike = () => {
           {
             data?.coins?.map((coin, index) => (
               <SwiperSlide 
-              className='flex flex-row rounded-xl gap-6 border border-[#E3E3E3]'
+              className='flex flex-row p-4 rounded-xl gap-6 border border-[#E3E3E3]'
               key={index} >
                 <div className='flex flex-col gap-2'>
                   <div className='flex gap-2'>
